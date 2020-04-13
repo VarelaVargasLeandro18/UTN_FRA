@@ -60,10 +60,16 @@ float Division (float uno, float dos)
 
 	float resultado = 0;
 
-	if (dos == 0)
+	if (uno == 0 && dos == 0)
 	{
 
-		printf ("\nATENCIÓN DIVIDIENDO POR CERO!!\n");
+		printf ("¡¡¡ATENCIÓN DIVIDIENDO 0/0!!! ESTO PRODUCE UNA INDETERMINACIÓN!!\n");
+
+	}
+	else if (dos == 0)
+	{
+
+		printf ("¡¡¡ATENCIÓN DIVIDIENDO POR CERO!!! ESTO DÁ INFINITO.\n");
 
 		return 0;
 
@@ -81,6 +87,21 @@ long long int Factorial (float operando)
 	int resultado = 0;
 
 	resultado = Float_a_Int (operando);
+
+	if (operando < 0)
+	{
+
+		printf("¡¡¡ATENCIÓN FACTORIAL DE NÚMERO NEGATIVO!!! SU RESPUESTA SERÁ 0.\n");
+
+		return 0;
+
+	}
+	if (operando == 0 || operando == 1)
+	{
+
+		return 1;
+
+	}
 
 	for (int fact_cont = operando; fact_cont > 0; fact_cont--)
 	{
@@ -104,6 +125,8 @@ void Imprimir_Menu (float uno, float dos)
 
 	 */
 
+	printf ("\n--------------------------\n");
+
 	printf ("Valor de A: %.2f\n", uno);
 
 	printf ("Valor de B: %.2f\n", dos);
@@ -113,7 +136,5 @@ void Imprimir_Menu (float uno, float dos)
 	printf ("1. Ingresar primer operando.\n2.Ingresar segundo operando.\nEl valor por defecto de los mismos será 0.\n");
 
 	printf ("3.Realizar todas las operaciones disponibles:\na) Suma (A + B).\nb) Resta (A - B).\nc) División (A / D).\nd) Multiplicación (A * B).\ne) Factorial (A!)\n");
-
-	printf ("Ingresar: ");
 
 }
