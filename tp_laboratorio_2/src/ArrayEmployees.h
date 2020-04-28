@@ -18,8 +18,15 @@ struct
 */
 int initEmployees (Employee* list, int len);
 
-/** \brief add in a existing list of employees the values received as parameters
-*	in the first empty position
+/* (Personal Function)
+ * \brief Find a Free place in employee list.
+ * \param list Employee* Pointer to array of employees.
+ * \param len int.
+ * \return int Index where the first free place was found. -1 if there's no free place.
+ */
+int findFreeEmployee (Employee* list, int len);
+
+/** \brief add in a existing list of employees the values received as parameters in the first empty position
 * 	\param list employee*
 * 	\param len int
 * 	\param id int
@@ -27,8 +34,7 @@ int initEmployees (Employee* list, int len);
 * 	\param lastName[] char
 * 	\param salary float
 * 	\param sector int
-* 	\return int Return (-1) if Error [Invalid length or NULL pointer or without
-*	free space] - (0) if Ok
+* 	\return int Return (-1) if Error [Invalid length or NULL pointer or without	free space] - (0) if Ok
 */
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector);
 
@@ -36,8 +42,7 @@ int addEmployee(Employee* list, int len, int id, char name[],char lastName[],flo
 * \param list Employee*
 * \param len int
 * \param id int
-* \return Return employee index position or (-1) if [Invalid length or NULL
-*	pointer received or employee not found]
+* \return Return employee index position or (-1) if [Invalid length or NULL pointer received or employee not found]
 */
 int findEmployeeById(Employee* list, int len,int id);
 
@@ -45,10 +50,17 @@ int findEmployeeById(Employee* list, int len,int id);
 *	\param list Employee*
 *	\param len int
 *	\param id int
-*	\return int Return (-1) if Error [Invalid length or NULL pointer or if can't
-*	find a employee] - (0) if Ok
+*	\return int Return (-1) if Error [Invalid length or NULL pointer or if can't find a employee] - (0) if Ok
 */
 int removeEmployee(Employee* list, int len, int id);
+
+/* Personal Function
+ * \brief Swap two variables each other.
+ * \param Employee* one Pointer to the first variable. The values stored in it will be stored in the second variable.
+ * \param Employee* two Pointer to the second variable. The values stored in it will be stored in the first variable.
+ * return void
+ */
+void swapEmployee (Employee* one, Employee* two);
 
 /** \brief Sort the elements in the array of employees, the argument order indicate UP or DOWN order
 * \param list Employee*
@@ -61,6 +73,6 @@ int sortEmployees(Employee* list, int len, int order);
 /** \brief print the content of employees array
 * \param list Employee*
 * \param length int
-* \return int
+* \return int Amount of Employees displayed.
 */
 int printEmployees(Employee* list, int length);
