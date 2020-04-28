@@ -1,16 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-
-#define MAX 1000
-#define TRUE 1
-#define FALSE 0
-#define UP 1
-#define DOWN 0
+#include "ArrayEmployees.h"
 
 int initEmployees (Employee* list, int len)
 {
 
-	if (list == NULL || len >= MAX)
+	if (list == NULL || len > MAX)
 	{
 
 		return -1;
@@ -57,7 +52,7 @@ int findFreeEmployee (Employee* list, int len)
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector)
 {
 
-	int Index = findEmployee (list, len);
+	int Index = findFreeEmployee (list, len);
 
 	if (Index == -1)
 	{
@@ -68,18 +63,17 @@ int addEmployee(Employee* list, int len, int id, char name[],char lastName[],flo
 
 	// Paso los valores entregados por el usuario al nuevo empleado.
 	list[Index].id = id;
-	/*list[Index].name = name;
-	list[Index].lastname = lastName;*/
 	strcpy (list[Index].name, name);
 	strcpy (list[Index].lastname, lastName);
 	list[Index].salary = salary;
 	list[Index].sector = sector;
+	list[Index].isEmpty = FALSE;
 
 	return 0;
 
 }
 
-int findEmployeeById(Employee* list, int len,int id)
+int findEmployeeById(Employee* list, int len, int id)
 {
 
 	if (len > MAX)
@@ -89,7 +83,7 @@ int findEmployeeById(Employee* list, int len,int id)
 
 	}
 
-	for (int Index = 0; Index > len; Index++)
+	for (int Index = 0; Index < len; Index++)
 	{
 
 		if (list[Index].id == id)
@@ -124,7 +118,7 @@ int removeEmployee(Employee* list, int len, int id)
 
 	}
 
-	list[Index].isEmpty = FALSE;
+	list[Index].isEmpty = TRUE;
 
 	return 0;
 
@@ -149,19 +143,25 @@ int sortEmployees(Employee* list, int len, int order)
 
 	}
 
-	for (int Index = 0; Index > len - 1; Index++)
+	order = (order == UP) ? 1 : -1;
+
+	for (int Index = 0; Index < len - 1; Index++)
 	{
 
-		for (int j = Index + 1; j > len; j++)
+		for (int j = Index + 1; j < len; j++)
 		{
 
-			if (order == UP && list[Index].name > list[j].name)
+			int comparison = strcmp (list[Index].lastname, list[j].lastname);
+
+			if (comparison == 0)
 			{
 
-				swapEmployee (&list[Index], &list[j]);
+				comparison = strcmp (list [Index].name, list[j].name);
+
 
 			}
-			else if (order == DOWN && list[Index].name < list[j].name)
+
+			if (comparison == order)
 			{
 
 				swapEmployee (&list[Index], &list[j]);
@@ -187,14 +187,16 @@ int printEmployees(Employee* list, int length)
 		if (list[Index].isEmpty == FALSE)
 		{
 
-			printf ("ID: %d\nName: %s %s\n", list[Index].id, list[Index].name, list[Index].lastname);
-			printf ("Salary: %.2f\nSector: %d\n", list[Index].salary, list[Index].sector);
 			printf ("-------------------------------------------------------------------");
+			printf ("\nID: %d\nName: %s %s\n", list[Index].id, list[Index].name, list[Index].lastname);
+			printf ("Salary: %.2f\nSector: %d\n", list[Index].salary, list[Index].sector);
 			AmDisplayed++;
 
 		}
 
 	}
+
+	printf ("-------------------------------------------------------------------\n");
 
 	return AmDisplayed;
 
