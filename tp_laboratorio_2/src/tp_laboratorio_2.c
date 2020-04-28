@@ -25,7 +25,7 @@ int main(void) {
 
 	char lastname [] = "Z";
 
-	for (int Count = valID - 1; Count < MAX; Count++)
+	for (int Count = valID - 1; Count < MAX - 5; Count++)
 	{
 
 		name [0]++;
@@ -36,11 +36,11 @@ int main(void) {
 
 	}
 
-	printEmployees (list, MAX);
-
 	removeEmployee (list, MAX, 5);
 
-	sortEmployees (list, MAX, UP);
+	printEmployees (list, MAX);
+
+	/*sortEmployees (list, MAX, UP);
 
 	printEmployees (list, MAX);
 
@@ -48,6 +48,15 @@ int main(void) {
 
 	printEmployees (list, MAX);
 
+	printf ("Calculated ID: %d", calculateID(list, MAX));*/
+
+	addEmployee (list, MAX, calculateID(list,MAX), lastname, name, 10000.5, 5);
+
+	printEmployees (list, MAX);
+
+	addEmployee (list, MAX, calculateID(list,MAX), lastname, name, 10000.5, 5);
+
+	printEmployees (list, MAX);
 
 	return EXIT_SUCCESS;
 }

@@ -84,3 +84,11 @@ int sortEmployees (Employee* list, int len, int order);
 * \return int Amount of Employees displayed.
 */
 int printEmployees (Employee* list, int length);
+
+/* (Personal Function)
+ * \brief Calculate a new and unused ID for an Employee.
+ * \param list Employee*
+ * \param len int
+ * \return int new ID calculated. -1 if there is no place for another Employee or if list is NULL.
+ */
+int calculateID (Employee* list, int len);

@@ -26,7 +26,7 @@ int initEmployees (Employee* list, int len)
 int findFreeEmployee (Employee* list, int len)
 {
 
-	if (len > MAX)
+	if (len > MAX || list == NULL)
 	{
 
 		return -1;
@@ -52,6 +52,13 @@ int findFreeEmployee (Employee* list, int len)
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector)
 {
 
+	if (list == NULL || len > MAX)
+	{
+
+		return -1;
+
+	}
+
 	int Index = findFreeEmployee (list, len);
 
 	if (Index == -1)
@@ -76,7 +83,7 @@ int addEmployee(Employee* list, int len, int id, char name[],char lastName[],flo
 int findEmployeeById(Employee* list, int len, int id)
 {
 
-	if (len > MAX)
+	if (len > MAX || list == NULL)
 	{
 
 		return -1;
@@ -102,7 +109,7 @@ int findEmployeeById(Employee* list, int len, int id)
 int removeEmployee(Employee* list, int len, int id)
 {
 
-	if (len > MAX)
+	if (len > MAX || list == NULL)
 	{
 
 		return -1;
@@ -181,6 +188,13 @@ int printEmployees(Employee* list, int length)
 
 	int AmDisplayed = 0;
 
+	if (list == NULL || length > MAX)
+	{
+
+		return -1;
+
+	}
+
 	for (int Index = 0; Index < length; Index++)
 	{
 
@@ -199,5 +213,51 @@ int printEmployees(Employee* list, int length)
 	printf ("-------------------------------------------------------------------\n");
 
 	return AmDisplayed;
+
+}
+
+int calculateID (Employee* list, int len)
+{
+
+	if (list == NULL || len > MAX)
+	{
+
+		return -1;
+
+	}
+
+	int ID = 1;
+	int Index = findFreeEmployee (list, len);
+
+	if (Index == -1)
+	{
+
+		return -1;
+
+	}
+	else if (list[Index].id != 0)
+	{
+
+		ID = list[Index].id;
+
+	}
+	else
+	{
+
+		for (Index = 0; Index < len; Index++)
+		{
+
+			if (list[Index].id == ID)
+			{
+
+				ID++;
+
+			}
+
+		}
+
+	}
+
+	return ID;
 
 }
