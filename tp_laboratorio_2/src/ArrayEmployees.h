@@ -92,3 +92,33 @@ int printEmployees (Employee* list, int length);
  * \return int new ID calculated. -1 if there is no place for another Employee or if list is NULL.
  */
 int calculateID (Employee* list, int len);
+
+/* (Personal Function)
+* \brief Modify all the values of an element of a given array of Employee type.
+* \param Employee* list Array where the element is.
+* \param int Index index where the element that is going to be modified is.
+* \param int len
+* \param name[] char
+* \param lastName[] char
+* \param salary float
+* \param sector int
+* \return void
+*/
+void modifyEmployee (Employee* list, int Index, char name[],char lastName[],float salary,int sector);
+
+/* (Personal Function)
+ * \brief Checks if the given ID is an existing ID.
+ * \param Employee* list Array where the ID has to be find.
+ * \param int len
+ * \param int ID. ID to evaluate.
+ * \return int Return (-1) if it is a not valid ID or 0 if it is.
+ */
+int isValidID (Employee* list, int len, int ID);
+
+/* (Personal Function)
+ * \brief Checks if an Employee has been entered in the given list.
+ * \param Employee* list Array to be checked.
+ * \param int len
+ * \return int Return (0) if it is not empty or -1 if it is empty.
+ */
+int isEmpty (Employee* list, int len);

@@ -17,6 +17,9 @@ int initEmployees (Employee* list, int len)
 
 		list[iterator].isEmpty = TRUE;
 
+
+		list[iterator].id = 0;
+
 	}
 
 	return 0;
@@ -93,7 +96,7 @@ int findEmployeeById(Employee* list, int len, int id)
 	for (int Index = 0; Index < len; Index++)
 	{
 
-		if (list[Index].id == id)
+		if (list[Index].id == id  && list[Index].isEmpty == FALSE)
 		{
 
 			return Index;
@@ -163,8 +166,7 @@ int sortEmployees(Employee* list, int len, int order)
 			if (comparison == 0)
 			{
 
-				comparison = strcmp (list [Index].name, list[j].name);
-
+				comparison = (list[Index].sector > list[j].sector) ? 1 : -1;
 
 			}
 
@@ -259,5 +261,65 @@ int calculateID (Employee* list, int len)
 	}
 
 	return ID;
+
+}
+
+void modifyEmployee (Employee* list, int Index, char name[],char lastName[],float salary,int sector)
+{
+
+	strcpy (list[Index].name, name);
+	strcpy (list[Index].lastname, lastName);
+	list[Index].salary = salary;
+	list[Index].sector = sector;
+
+}
+
+int isValidID (Employee* list, int len, int ID)
+{
+
+	int Index;
+
+	if (ID < 0)
+	{
+
+		printf ("No es un ID válido.\n");
+
+		return -1;
+
+	}
+	else
+	{
+
+		Index = findEmployeeById (list, MAX, ID);
+		if (Index == -1)
+		{
+
+			printf ("No existe ese Empleado!\n");
+
+			return -1;
+
+		}
+
+	}
+
+	return 0;
+
+}
+
+int isEmpty (Employee* list, int len)
+{
+
+	for (int Index = 0; Index < len; Index++)
+	{
+
+		if (list[Index].isEmpty == FALSE)
+		{
+
+			return 0;
+		}
+
+	}
+
+	return -1;
 
 }
