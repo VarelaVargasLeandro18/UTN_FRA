@@ -122,3 +122,20 @@ int isValidID (Employee* list, int len, int ID);
  * \return int Return (0) if it is not empty or -1 if it is empty.
  */
 int isEmpty (Employee* list, int len);
+
+/* (Personal Function)
+ * \brief Calculates the average salary of all the employees.
+ * \param Employee* list
+ * \param int len
+ * \return float Return the salary average of all the Employees.
+ */
+float sumSalary (Employee* list, int len);
+
+/* (Personal Function)
+ * \brief Calculate the amount of Employees that have a superior salary that the one was given.
+ * \param Employee* list
+ * \param int len
+ * \param float value Value to compare all the salaries.
+ * \return int Amount of Employees with a better salary.
+ */
+int amBetterSalary (Employee* list, int len, float value);

@@ -18,6 +18,7 @@ int main(void) {
 
 	int option;
 	int amEmployee = 0;
+	int correcto = 0;
 
 	Employee list [MAX];
 
@@ -33,16 +34,16 @@ int main(void) {
 		do
 		{
 
-			option = get_int ("Ingrese su opción: ");
+			option = (int)get_number ("Ingrese su opción: ");
 
-			if (isEmpty (list, MAX) && option > 1)
+			if (amEmployee == 0 && (option > 1 && option <= 4))
 			{
 
 				printf ("Aún no se ha ingresado ningún empleado!\n");
 
 			}
 
-		} while (isEmpty (list, MAX) && option > 1);
+		} while (amEmployee == 0 && (option > 1 && option <= 4));
 
 		switch (option)
 		{
@@ -67,22 +68,13 @@ int main(void) {
 
 					printf ("Ha ingresado al menú de ALTAS de empleados.\n");
 
-					if (amEmployee >= MAX)
-					{
-
-						printf ("Ha excedido el número máximo de empleados.\n");
-
-						break;
-
-					}
-
 					ID = calculateID (list, MAX);
 
 					printf ("El ID del empleado es: %d.\n", ID);
 
-					salary = get_float ("Ingrese el salario del empleado: $");
+					salary = get_number ("Ingrese el salario del empleado: $");
 
-					sector = get_int ("Ingrese el sector del empleado: ");
+					sector = (int) get_number ("Ingrese el sector del empleado: ");
 
 					__fpurge(stdin);
 
@@ -96,9 +88,31 @@ int main(void) {
 
 					fgets (lastName, 51, stdin);
 
-					addEmployee (list, MAX, ID, name, lastName, salary, sector);
+					correcto = addEmployee (list, MAX, ID, name, lastName, salary, sector);
 
-					amEmployee++;
+					if (correcto == 0)
+					{
+
+						amEmployee++;
+
+						printf ("El empleado se ha ingresado correctamente.\n");
+
+					}
+					else
+					{
+
+						printf ("Ha habido un error! Vuelva a intentarlo.\n");
+
+						if (amEmployee >= MAX)
+						{
+
+							printf ("Ha excedido el número máximo de empleados.\n");
+
+							break;
+
+						}
+
+					}
 
 					break;
 
@@ -119,7 +133,7 @@ int main(void) {
 					do
 					{
 
-						ID = get_int ("Ingrese el ID del empleado en cuestión: ");
+						ID = (int)get_number ("Ingrese el ID del empleado en cuestión: ");
 
 					} while (isValidID(list, MAX, ID) < 0);
 
@@ -135,11 +149,13 @@ int main(void) {
 
 					fgets (lastName, 51, stdin);
 
-					salary = get_float ("Ingrese el salario del empleado: $");
+					salary = get_number ("Ingrese el salario del empleado: $");
 
-					sector = get_int ("Ingrese el sector del empleado: ");
+					sector = (int)get_number ("Ingrese el sector del empleado: ");
 
 					modifyEmployee (list, Index, name, lastName, salary, sector);
+
+					printf ("Se ha modificado el empleado correctamente.\n");
 
 					break;
 
@@ -155,11 +171,13 @@ int main(void) {
 					do
 					{
 
-						ID = get_int ("Ingrese el ID del empleado en cuestión: ");
+						ID = (int)get_number ("Ingrese el ID del empleado en cuestión: ");
 
 					} while (isValidID(list, MAX, ID) < 0);
 
 					removeEmployee (list, MAX, ID);
+
+					printf ("Ha dado de baja al empleado correctamente.\n");
 
 					break;
 
@@ -169,6 +187,47 @@ int main(void) {
 				{
 
 					//INFORMAR 1.LISTADO DE EMPLEADOS ORDENADOS ALFABETICAMENTE POR APELLIDO Y SECTOR. 2.TOTAL Y PROM SALARIOS. CANT EMPLEADOS QUE SUPERAN SALARIO PROM.
+
+					printf ("Ha ingresado al menu de listado de empleados.\n");
+					printf ("0. Salir.\n1.Listar Empleados.\n");
+					printf ("2.Conocer la cantidad total y el promedio de salario, junto con la cantidad de empleados que lo superan.\n");
+
+					int oplistado = (int) get_nr_bt ("Ingrese su opcion: ", 0, 2, "El ingreso no se encuentra entre los valores válidos.");
+
+					if (oplistado == 0)
+					{
+
+						break;
+
+					}
+
+					if (oplistado == 1)
+					{
+
+						printf ("0.Orden descendente.\t1.Orden ascendente.\n");
+
+						int order = (int) get_nr_bt ("Ingrese su opcion: ", 0 , 1, "El ingreso no se encuentra entre los valores válidos.");
+
+						if (sortEmployees (list, MAX, order) == 0)
+						{
+
+							printEmployees (list, MAX);
+
+						}
+
+					}
+					else
+					{
+
+						float salaries = sumSalary (list, MAX);
+
+						int qEmployeeMayorSalary = amBetterSalary (list, MAX, salaries/amEmployee);
+
+						printf ("Opción 2.\nSumatoria salario empleados: %f.2.\nPromedio de salarios: %.2f.\n", salaries, salaries/amEmployee);
+
+						printf ("Cantidad de Empleados con salarios mayores al promedio: %d\n", qEmployeeMayorSalary);
+
+					}
 
 					break;
 

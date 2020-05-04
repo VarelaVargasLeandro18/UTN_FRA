@@ -204,8 +204,8 @@ int printEmployees(Employee* list, int length)
 		{
 
 			printf ("-------------------------------------------------------------------");
-			printf ("\nID: %d\nName: %s %s\n", list[Index].id, list[Index].name, list[Index].lastname);
-			printf ("Salary: %.2f\nSector: %d\n", list[Index].salary, list[Index].sector);
+			printf ("\nID: %d\nNombre: %s\nApellido: %s\n", list[Index].id, list[Index].name, list[Index].lastname);
+			printf ("Salario: %.2f\nSector: %d\n", list[Index].salary, list[Index].sector);
 			AmDisplayed++;
 
 		}
@@ -221,6 +221,7 @@ int printEmployees(Employee* list, int length)
 int calculateID (Employee* list, int len)
 {
 
+	/*
 	if (list == NULL || len > MAX)
 	{
 
@@ -261,6 +262,25 @@ int calculateID (Employee* list, int len)
 	}
 
 	return ID;
+	*/
+
+	int MaxID = 0;
+
+	for (int Iterator = 0; Iterator < len; Iterator++)
+	{
+
+		if (list[Iterator].id > MaxID)
+		{
+
+			MaxID = list[Iterator].id;
+
+		}
+
+	}
+
+	int Devolver = MaxID + 1;
+
+	return Devolver;
 
 }
 
@@ -321,5 +341,42 @@ int isEmpty (Employee* list, int len)
 	}
 
 	return -1;
+
+}
+
+float sumSalary (Employee* list, int len)
+{
+
+	float promSalary = 0;
+
+	for (int Iterator = 0; Iterator < len; Iterator++)
+	{
+
+		promSalary += list[Iterator].salary;
+
+	}
+
+	return promSalary;
+
+}
+
+int amBetterSalary (Employee* list, int len, float value)
+{
+
+	int amount = 0;
+
+	for (int Iterator = 0; Iterator < len; Iterator++)
+	{
+
+		if (list[Iterator].salary > value)
+		{
+
+			amount++;
+
+		}
+
+	}
+
+	return amount;
 
 }

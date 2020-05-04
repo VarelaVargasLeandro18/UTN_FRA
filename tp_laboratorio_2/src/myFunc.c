@@ -1,20 +1,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int get_int (char* msg)
+float get_nr_bt (char* msg, float less, float mayor, char* al_msg)
 {
 
-	int usr_input;
+	float input;
 
-	printf ("%s", msg);
+	do
+	{
 
-	scanf ("%d", &usr_input);
+		printf ("%s", msg);
 
-	return usr_input;
+		scanf ("%f", &input);
+
+		if (input < less || input > mayor)
+		{
+
+			printf ("%s\n", al_msg);
+
+		}
+
+	} while (input < less || input > mayor);
+
+	return input;
 
 }
 
-float get_float (char* msg)
+float get_number (char* msg)
 {
 
 	float usr_input;
