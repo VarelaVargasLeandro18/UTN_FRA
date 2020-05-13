@@ -153,8 +153,6 @@ int sortEmployees(Employee* list, int len, int order)
 
 	}
 
-	order = (order == UP) ? 1 : -1;
-
 	for (int Index = 0; Index < len - 1; Index++)
 	{
 
@@ -166,7 +164,13 @@ int sortEmployees(Employee* list, int len, int order)
 			if (comparison == 0)
 			{
 
-				comparison = (list[Index].sector > list[j].sector) ? 1 : -1;
+				comparison = (list[Index].sector > list[j].sector) ? UP : DOWN;
+
+			}
+			else
+			{
+
+				comparison = (comparison > 0) ? UP : DOWN;
 
 			}
 
@@ -220,49 +224,6 @@ int printEmployees(Employee* list, int length)
 
 int calculateID (Employee* list, int len)
 {
-
-	/*
-	if (list == NULL || len > MAX)
-	{
-
-		return -1;
-
-	}
-
-	int ID = 1;
-	int Index = findFreeEmployee (list, len);
-
-	if (Index == -1)
-	{
-
-		return -1;
-
-	}
-	else if (list[Index].id != 0)
-	{
-
-		ID = list[Index].id;
-
-	}
-	else
-	{
-
-		for (Index = 0; Index < len; Index++)
-		{
-
-			if (list[Index].id == ID)
-			{
-
-				ID++;
-
-			}
-
-		}
-
-	}
-
-	return ID;
-	*/
 
 	int MaxID = 0;
 
@@ -352,7 +313,7 @@ float sumSalary (Employee* list, int len)
 	for (int Iterator = 0; Iterator < len; Iterator++)
 	{
 
-		promSalary += list[Iterator].salary;
+		promSalary += (list[Iterator].isEmpty == TRUE) ? list[Iterator].salary : 0;
 
 	}
 
@@ -378,5 +339,34 @@ int amBetterSalary (Employee* list, int len, float value)
 	}
 
 	return amount;
+
+}
+
+Employee enterEmployee ()
+{
+
+	Employee Aux;
+
+	Aux.salary = get_number ("Ingrese el salario del empleado: $");
+
+	Aux.sector = (int) get_number ("Ingrese el sector del empleado: ");
+
+	__fpurge(stdin);
+
+	printf ("Ingrese el nombre del empleado: ");
+
+	fgets (Aux.name, 51, stdin);
+
+	str_eliminate (Aux.name, 51, '\n');
+
+	__fpurge (stdin);
+
+	printf ("Ingrese el apellido del empleado: ");
+
+	fgets (Aux.lastname, 51, stdin);
+
+	str_eliminate (Aux.lastname, 51, '\n');
+
+	return Aux;
 
 }

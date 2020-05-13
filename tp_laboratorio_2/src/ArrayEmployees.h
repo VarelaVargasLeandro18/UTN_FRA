@@ -1,3 +1,5 @@
+#include "myFunc.h"
+
 // Definitions
 #define MAX 15
 #define TRUE 1
@@ -139,3 +141,9 @@ float sumSalary (Employee* list, int len);
  * \return int Amount of Employees with a better salary.
  */
 int amBetterSalary (Employee* list, int len, float value);
+
+/* (Personal Function)
+ * \brief Ask to the user for all the Employee data and return it in the form of an Employee.
+ * \return Return an Employee with all the parameters.
+ */
+Employee enterEmployee ();

@@ -8,6 +8,8 @@
  ============================================================================
  */
 
+// Agregar opciones de mostrar empleados en 2 y 3. Agregar la opción de elegir qué modificar.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
@@ -17,10 +19,16 @@
 int main(void) {
 
 	int option;
-	int amEmployee = 0;
-	int correcto = 0;
+	int correcto;
+	int ID;
+	int amEmployee = 0; // Contador de Empleados.
+	int Index;
+	int order;
+	int qEmployeeMayorSalary;
+	float salaries;
 
 	Employee list [MAX];
+	Employee Aux;
 
 	initEmployees (list, MAX);
 
@@ -31,19 +39,7 @@ int main(void) {
 
 		printf ("Menu:\n0. SALIR\n1. ALTAS\n2. MODIFICAR.\n3. BAJA\n4. INFORMAR.\n");
 
-		do
-		{
-
-			option = (int)get_number ("Ingrese su opción: ");
-
-			if (amEmployee == 0 && (option > 1 && option <= 4))
-			{
-
-				printf ("Aún no se ha ingresado ningún empleado!\n");
-
-			}
-
-		} while (amEmployee == 0 && (option > 1 && option <= 4));
+		option = get_option (1, 4, amEmployee);
 
 		switch (option)
 		{
@@ -60,35 +56,15 @@ int main(void) {
 			case 1:
 				{
 
-					char name[51];
-					char lastName[51];
-					int ID;
-					int sector;
-					float salary;
-
 					printf ("Ha ingresado al menú de ALTAS de empleados.\n");
 
 					ID = calculateID (list, MAX);
 
 					printf ("El ID del empleado es: %d.\n", ID);
 
-					salary = get_number ("Ingrese el salario del empleado: $");
+					Aux = enterEmployee();
 
-					sector = (int) get_number ("Ingrese el sector del empleado: ");
-
-					__fpurge(stdin);
-
-					printf ("Ingrese el nombre del empleado: ");
-
-					fgets (name, 51, stdin);
-
-					__fpurge (stdin);
-
-					printf ("Ingrese el apellido del empleado: ");
-
-					fgets (lastName, 51, stdin);
-
-					correcto = addEmployee (list, MAX, ID, name, lastName, salary, sector);
+					correcto = addEmployee (list, MAX, ID, Aux.name, Aux.lastname, Aux.salary, Aux.sector);
 
 					if (correcto == 0)
 					{
@@ -121,15 +97,6 @@ int main(void) {
 			case 2:
 				{
 
-					char name[51];
-					char lastName[51];
-					int ID = 0;
-					int Index = 0;
-					int sector;
-					float salary;
-
-					printf ("Ha ingresado al menú de MODIFICACIÓN de empleados.\n");
-
 					do
 					{
 
@@ -137,23 +104,11 @@ int main(void) {
 
 					} while (isValidID(list, MAX, ID) < 0);
 
-					__fpurge (stdin);
+					Index = findEmployeeById (list, MAX, ID);
 
-					printf ("Ingrese el nombre del empleado: ");
+					Aux = enterEmployee();
 
-					fgets (name, 51, stdin);
-
-					__fpurge (stdin);
-
-					printf ("Ingrese el apellido del empleado: ");
-
-					fgets (lastName, 51, stdin);
-
-					salary = get_number ("Ingrese el salario del empleado: $");
-
-					sector = (int)get_number ("Ingrese el sector del empleado: ");
-
-					modifyEmployee (list, Index, name, lastName, salary, sector);
+					modifyEmployee (list, Index, Aux.name, Aux.lastname, Aux.salary, Aux.sector);
 
 					printf ("Se ha modificado el empleado correctamente.\n");
 
@@ -164,9 +119,9 @@ int main(void) {
 			case 3:
 				{
 
-					int ID = 0;
-
 					printf ("Ha ingreso al menú de BAJA de empleados.\n");
+
+					printEmployees (list, MAX);
 
 					do
 					{
@@ -177,6 +132,8 @@ int main(void) {
 
 					removeEmployee (list, MAX, ID);
 
+					amEmployee--;
+
 					printf ("Ha dado de baja al empleado correctamente.\n");
 
 					break;
@@ -185,8 +142,6 @@ int main(void) {
 
 			case 4:
 				{
-
-					//INFORMAR 1.LISTADO DE EMPLEADOS ORDENADOS ALFABETICAMENTE POR APELLIDO Y SECTOR. 2.TOTAL Y PROM SALARIOS. CANT EMPLEADOS QUE SUPERAN SALARIO PROM.
 
 					printf ("Ha ingresado al menu de listado de empleados.\n");
 					printf ("0. Salir.\n1.Listar Empleados.\n");
@@ -206,7 +161,7 @@ int main(void) {
 
 						printf ("0.Orden descendente.\t1.Orden ascendente.\n");
 
-						int order = (int) get_nr_bt ("Ingrese su opcion: ", 0 , 1, "El ingreso no se encuentra entre los valores válidos.");
+						order = (int) get_nr_bt ("Ingrese su opcion: ", 0 , 1, "El ingreso no se encuentra entre los valores válidos.");
 
 						if (sortEmployees (list, MAX, order) == 0)
 						{
@@ -219,11 +174,11 @@ int main(void) {
 					else
 					{
 
-						float salaries = sumSalary (list, MAX);
+						salaries = sumSalary (list, MAX);
 
-						int qEmployeeMayorSalary = amBetterSalary (list, MAX, salaries/amEmployee);
+						qEmployeeMayorSalary = amBetterSalary (list, MAX, salaries/amEmployee);
 
-						printf ("Opción 2.\nSumatoria salario empleados: %f.2.\nPromedio de salarios: %.2f.\n", salaries, salaries/amEmployee);
+						printf ("Opción 2.\nSumatoria salario empleados: $%.2f.\nPromedio de salarios: $%.2f.\n", salaries, salaries/amEmployee);
 
 						printf ("Cantidad de Empleados con salarios mayores al promedio: %d\n", qEmployeeMayorSalary);
 
