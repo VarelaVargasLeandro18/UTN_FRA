@@ -1,15 +1,3 @@
-/*
- ============================================================================
- Name        : tp_laboratorio_2.c
- Author      : VarelaVargasLeandro18
- Version     :
- Copyright   : Your copyright notice
- Description :
- ============================================================================
- */
-
-// Agregar opciones de mostrar empleados en 2 y 3. Agregar la opción de elegir qué modificar.
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio_ext.h>
@@ -18,6 +6,7 @@
 
 int main(void) {
 
+	//Creamos las variables:
 	int option;
 	int correcto;
 	int ID;
@@ -26,11 +15,28 @@ int main(void) {
 	int order;
 	int qEmployeeMayorSalary;
 	float salaries;
+	char hardcodear;
 
+	//Creamos la lista de employees:
 	Employee list [MAX];
+	//Employee Auxiliar para ingresar los datos:
 	Employee Aux;
 
+	//Inicializamos los employees
 	initEmployees (list, MAX);
+
+	printf ("¿Desea utilizar algunos valores de prueba ingresados manualmente? ('s' para sí, cualquier otro valor será no): ");
+
+	scanf ("%c", &hardcodear);
+
+	if (hardcodear == 's')
+	{
+
+		amEmployee = HardcodeEmployees (list);
+
+		printf ("HARDCODE REALIZADO!!\n");
+
+	}
 
 	do
 	{
@@ -96,6 +102,8 @@ int main(void) {
 
 			case 2:
 				{
+
+					printEmployees (list, MAX);
 
 					do
 					{
@@ -178,7 +186,7 @@ int main(void) {
 
 						qEmployeeMayorSalary = amBetterSalary (list, MAX, salaries/amEmployee);
 
-						printf ("Opción 2.\nSumatoria salario empleados: $%.2f.\nPromedio de salarios: $%.2f.\n", salaries, salaries/amEmployee);
+						printf ("Opción 2.\nSumatoria salario empleados: $%.2f\nPromedio de salarios: $%.2f\n", salaries, salaries/amEmployee);
 
 						printf ("Cantidad de Empleados con salarios mayores al promedio: %d\n", qEmployeeMayorSalary);
 

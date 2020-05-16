@@ -20,6 +20,12 @@ struct
 
 } typedef Employee;
 
+/* (Personal Function)
+ * \brief Hardcode some employees in an employee list to test all the other functions.
+ * \param Employee* list
+ * \return void
+ */
+int HardcodeEmployees (Employee* list);
 
 /** \brief To indicate that all position in the array are empty, this function put the flag (isEmpty) in TRUE in all position of the array
 * 	\param list Employee* Pointer to array of employees

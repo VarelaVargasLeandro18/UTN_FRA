@@ -1,6 +1,39 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "ArrayEmployees.h"
+
+#define HEMPLOYEE 10
+
+
+
+int HardcodeEmployees (Employee* list)
+{
+
+	int IDs [HEMPLOYEE] = { 5, 86, 46, 85, 93, 105, 47, 8, 103, 26};
+	char Names [HEMPLOYEE] [51] =
+	{ "George", "Valentina", "Carlos", "Julieta", "Pedro", "Thomas", "Leandro", "Alejandra", "Pablo", "Romeo" };
+	char LastNames [HEMPLOYEE] [51] =
+	{ "Orwell", "Díaz", "Angelo", "Capuleto", "Calderón de la Barca", "Edison", "Varela Vargas", "Ruiz", "Rey", "Montesco" };
+	float Salaries [HEMPLOYEE] =
+	{ 1984, 7812, 555, 7805, 1597, 1945.5, 2020.5, 4658.9, 4687.8, 1597 }; //Promedio = 3466.27
+	float Sectors [HEMPLOYEE] =
+	{ 5, 9, 15, 16, 3, 8, 7, 13, 11, 10 };
+
+	for (int Iterator = 0; Iterator < HEMPLOYEE; Iterator++)
+	{
+
+		list[Iterator].isEmpty = FALSE;
+		list[Iterator].id = IDs[Iterator];
+		strcpy (list[Iterator].name, Names[Iterator]);
+		strcpy (list[Iterator].lastname, LastNames[Iterator]);
+		list[Iterator].salary = Salaries[Iterator];
+		list[Iterator].sector = Sectors[Iterator];
+
+	}
+
+
+}
 
 int initEmployees (Employee* list, int len)
 {
@@ -22,7 +55,7 @@ int initEmployees (Employee* list, int len)
 
 	}
 
-	return 0;
+	return HEMPLOYEE;
 
 }
 
@@ -308,16 +341,16 @@ int isEmpty (Employee* list, int len)
 float sumSalary (Employee* list, int len)
 {
 
-	float promSalary = 0;
+	float sumSalary = 0;
 
 	for (int Iterator = 0; Iterator < len; Iterator++)
 	{
 
-		promSalary += (list[Iterator].isEmpty == TRUE) ? list[Iterator].salary : 0;
+		sumSalary += (list[Iterator].isEmpty == FALSE) ? list[Iterator].salary : 0;
 
 	}
 
-	return promSalary;
+	return sumSalary;
 
 }
 
