@@ -14,7 +14,7 @@ int HardcodeEmployees (Employee* list)
 	char Names [HEMPLOYEE] [51] =
 	{ "George", "Valentina", "Carlos", "Julieta", "Pedro", "Thomas", "Leandro", "Alejandra", "Pablo", "Romeo" };
 	char LastNames [HEMPLOYEE] [51] =
-	{ "Orwell", "Díaz", "Angelo", "Capuleto", "Calderón de la Barca", "Edison", "Varela Vargas", "Ruiz", "Rey", "Montesco" };
+	{ "Orwell", "Diaz", "Angelo", "Capuleto", "Calderon de la Barca", "Edison", "Varela Vargas", "Ruiz", "Rey", "Montesco" };
 	float Salaries [HEMPLOYEE] =
 	{ 1984, 7812, 555, 7805, 1597, 1945.5, 2020.5, 4658.9, 4687.8, 1597 }; //Promedio = 3466.27
 	float Sectors [HEMPLOYEE] =
@@ -32,6 +32,7 @@ int HardcodeEmployees (Employee* list)
 
 	}
 
+	return HEMPLOYEE;
 
 }
 
@@ -234,22 +235,28 @@ int printEmployees(Employee* list, int length)
 
 	}
 
+	printf ("----------------------------------------------------------------------\n");
+
+	printf ("ID\tNombre\t\tApellido\t\tSalario\t\tSector\n");
+
 	for (int Index = 0; Index < length; Index++)
 	{
 
 		if (list[Index].isEmpty == FALSE)
 		{
 
-			printf ("-------------------------------------------------------------------");
-			printf ("\nID: %d\nNombre: %s\nApellido: %s\n", list[Index].id, list[Index].name, list[Index].lastname);
-			printf ("Salario: %.2f\nSector: %d\n", list[Index].salary, list[Index].sector);
+			printf ("%-8d%-16s%-24s$%-15.2f%-5d\n",
+												list[Index].id,
+												list[Index].name,
+												list[Index].lastname,
+												list[Index].salary,
+												list[Index].sector
+																			);
 			AmDisplayed++;
 
 		}
 
 	}
-
-	printf ("-------------------------------------------------------------------\n");
 
 	return AmDisplayed;
 

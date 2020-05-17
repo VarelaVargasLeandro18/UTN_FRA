@@ -41,7 +41,7 @@ int main(void) {
 	do
 	{
 
-		printf ("------------------------------------------------------------------\n");
+		printf ("----------------------------------------------------------------------\n");
 
 		printf ("Menu:\n0. SALIR\n1. ALTAS\n2. MODIFICAR.\n3. BAJA\n4. INFORMAR.\n");
 
@@ -61,6 +61,8 @@ int main(void) {
 
 			case 1:
 				{
+
+					printf ("----------------------------------------------------------------------\n");
 
 					printf ("Ha ingresado al menú de ALTAS de empleados.\n");
 
@@ -127,6 +129,8 @@ int main(void) {
 			case 3:
 				{
 
+					printf ("----------------------------------------------------------------------\n");
+
 					printf ("Ha ingreso al menú de BAJA de empleados.\n");
 
 					printEmployees (list, MAX);
@@ -150,6 +154,8 @@ int main(void) {
 
 			case 4:
 				{
+
+					printf ("----------------------------------------------------------------------\n");
 
 					printf ("Ha ingresado al menu de listado de empleados.\n");
 					printf ("0. Salir.\n1.Listar Empleados.\n");
