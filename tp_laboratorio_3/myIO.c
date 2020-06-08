@@ -11,6 +11,12 @@ int isonlyanum ( char* mystr )
     int Iterator = 0;
     boolean isokay = FALSE;
     
+    if ( * ( mystr + Iterator ) == '-' )
+    {
+
+        Iterator++;
+
+    }
     
     while ( *( mystr + Iterator ) != '\0'  )
     {
@@ -55,7 +61,7 @@ int isonlyalpha ( char* mystr )
     boolean isokay = FALSE;
     
     int Iterator = 0;
-    
+
     while ( *( mystr + Iterator ) != '\0' )
     {
         

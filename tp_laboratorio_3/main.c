@@ -28,37 +28,7 @@ int main()
     int option = 0;
 
     LinkedList* listaEmpleados = ll_newLinkedList();
-////////////////////////////////////////////////////////
-    //int controller_loadFromText( char* path , LinkedList* pArrayListEmployee )
-
-    if ( controller_addEmployee ( listaEmpleados ) == TRUE )
-    {
-
-        printf ("H");
-
-    }
-    else
-    {
-        printf ("G");
-    }
     
-    if ( controller_ListEmployee ( listaEmpleados ) == TRUE )
-    {
-
-        printf ("L\n");
-
-    }
-
-    if ( controller_removeEmployee ( listaEmpleados ) == TRUE)
-    {
-
-        controller_ListEmployee ( listaEmpleados );
-
-    }
-    
-    ll_deleteLinkedList ( listaEmpleados );
-
-////////////////////////////////////////////////////////
     /*do{
 
     	printMenu();

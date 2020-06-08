@@ -127,7 +127,7 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
                     }
                     else
                     {
-                        
+
                         isokay = FALSE;
 
                         break;

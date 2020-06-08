@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LinkedList.h"
-#include "Employee.h"
 #include "parser.h"
+#include "Controller.h"
+#include "Employee.h"
 
 //Includes personales:
 #include "myIO.h"
@@ -373,7 +375,29 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
     boolean isokay = FALSE;
 
-    return 1;
+    int Order;
+
+    do
+    {
+        
+        printf ("%s\n%s\n",     "0. Orden Descendente.",
+                                "1. Orden Ascendente."
+                                                        );
+
+        Order = (int) get_number ( "Ingrese el orden en el que se ordenarán los empleados : ", "NO ES UN VALOR VALIDO." );
+
+        if ( Order > 1 || Order < 0 )
+        {
+
+            printf ("NO ES UN VALOR VALIDO.\n");
+
+        }    
+    
+    } while ( Order > 1 || Order < 0 );
+
+    isokay = ll_sort ( pArrayListEmployee, sort_employee, Order );    
+
+    return isokay;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -387,6 +411,55 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
 
     boolean isokay = FALSE;
+
+    Employee* myEmployee = NULL;
+
+    int AuxIdEmployee;
+    char AuxnombreEmployee [128];
+    int AuxHorasTrabajadasEmployee;
+    int AuxSueldoEmployee;
+
+    FILE* pFile;
+
+    pFile = fopen ( path, "w" );
+
+    if ( pFile != NULL )
+    {
+
+        isokay = TRUE;
+
+        fprintf ( pFile, "%s,%s,%s,%s\n",   "id",
+                                    "nombre",
+                                    "horasTrabajadas",
+                                    "sueldo"
+                                            );
+
+        for ( int Index = 0; Index < ll_len ( pArrayListEmployee ); Index++ )
+        {
+
+            myEmployee = ll_get ( pArrayListEmployee, Index );
+
+            if ( myEmployee != NULL )
+            {
+
+                employee_getId ( myEmployee, &AuxIdEmployee );
+                employee_getNombre ( myEmployee, AuxnombreEmployee );
+                employee_getHorasTrabajadas ( myEmployee, &AuxHorasTrabajadasEmployee );
+                employee_getSueldo ( myEmployee, &AuxSueldoEmployee );
+
+                fprintf ( pFile, "%d,%s,%d,%d\n",   AuxIdEmployee,
+                                            AuxnombreEmployee,
+                                            AuxHorasTrabajadasEmployee,
+                                            AuxSueldoEmployee
+                                                                );
+
+            }
+
+        }
+
+    }
+
+    fclose ( pFile );
 
     return isokay;
 
@@ -438,3 +511,30 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     return isokay;
 }
 
+int sort_employee ( void* One, void* Two )
+{
+
+    int toreturn;
+
+    if ( One != NULL && Two != NULL )
+    {
+
+        if ( strcmp ( ( ( Employee* ) One )->nombre, ( (Employee*) Two )->nombre ) > 0 )
+        {
+
+            toreturn = 1;
+        
+        }
+
+        if ( strcmp ( ( ( Employee* ) One )->nombre, ( (Employee*) Two )->nombre ) < 0 )
+        {
+
+            toreturn = -1;
+
+        }
+
+    }    
+
+    return toreturn;
+
+}

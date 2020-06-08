@@ -387,7 +387,6 @@ id,nombre,horasTrabajadas,sueldo
 386,Demeter,88,10000
 387,Juliann,90,50000
 388,Shauna,120,25000
-389,Anna-maria,120,42000
 390,Ag,88,50000
 391,Sherwin,88,50000
 392,Vikki,88,33000
@@ -526,7 +525,6 @@ id,nombre,horasTrabajadas,sueldo
 525,Edan,88,20000
 526,Homer,325,10000
 527,Eveline,325,37000
-528,Helen-elizabeth,220,20000
 529,Daveta,180,20000
 530,Mort,90,42000
 531,Maxi,75,37000
@@ -670,7 +668,6 @@ id,nombre,horasTrabajadas,sueldo
 669,Beverlee,60,25000
 670,Arlette,220,30000
 671,Jacqueline,90,50000
-672,Sheila-kathryn,90,10000
 673,Lambert,325,42000
 674,Lamont,220,33000
 675,Immanuel,75,33000
