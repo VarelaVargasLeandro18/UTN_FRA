@@ -244,4 +244,114 @@ int employee_getSueldo(Employee* this,int* sueldo)
     
 }
 
+int employee_comparebyName ( void* One, void* Two )
+{
 
+    int toreturn;
+
+    if ( One != NULL && Two != NULL )
+    {
+
+        if ( strcmp ( ( ( Employee* ) One )->nombre, ( (Employee*) Two )->nombre ) > 0 )
+        {
+
+            toreturn = 1;
+        
+        }
+
+        if ( strcmp ( ( ( Employee* ) One )->nombre, ( (Employee*) Two )->nombre ) < 0 )
+        {
+
+            toreturn = -1;
+
+        }
+
+    }    
+
+    return toreturn;
+
+}
+
+int employee_comparebyID ( void* One, void* Two )
+{
+
+    int toreturn;
+
+    if ( One != NULL && Two != NULL )
+    {
+
+        if ( ( ( Employee* ) One )->id > ( ( Employee* ) Two )->id  )
+        {
+
+            toreturn = 1;
+        
+        }
+
+        if ( ( ( Employee* ) One )->id < ( ( Employee* ) Two )->id  )
+        {
+
+            toreturn = -1;
+
+        }
+
+    }    
+
+    return toreturn;
+
+}
+
+int employee_comparebyhorasTrabajadas ( void* One, void* Two )
+{
+
+    int toreturn;
+
+    if ( One != NULL && Two != NULL )
+    {
+
+        if ( ( ( Employee* ) One )->horasTrabajadas > ( ( Employee* ) Two )->horasTrabajadas  )
+        {
+
+            toreturn = 1;
+        
+        }
+
+        if ( ( ( Employee* ) One )->horasTrabajadas < ( ( Employee* ) Two )->horasTrabajadas  )
+        {
+
+            toreturn = -1;
+
+        }
+
+    }    
+
+    return toreturn;
+
+}
+
+int employee_comparebysueldo ( void* One, void* Two )
+{
+
+    int toreturn;
+
+    if ( One != NULL && Two != NULL )
+    {
+
+        if ( ( ( Employee* ) One )->sueldo > ( ( Employee* ) Two )->sueldo  )
+        {
+
+            toreturn = 1;
+        
+        }
+
+        if ( ( ( Employee* ) One )->sueldo < ( ( Employee* ) Two )->sueldo  )
+        {
+
+            toreturn = -1;
+
+        }
+
+    }    
+
+    return toreturn;
+
+}

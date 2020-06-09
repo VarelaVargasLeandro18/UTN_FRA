@@ -376,6 +376,29 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     boolean isokay = FALSE;
 
     int Order;
+    int Option;
+
+    int (*sortFunctions [] ) ( void*, void* ) = { employee_comparebyID, employee_comparebyName, employee_comparebyhorasTrabajadas, employee_comparebysueldo };
+
+    do
+    {
+
+        printf ("%s\n%s\n%s\n%s\n", "1. Ordenar por ID.",
+                                    "2. Ordenar por Nombre.",
+                                    "3. Ordenar por Horas Trabajadas.",
+                                    "4. Ordenar por sueldo"
+                                                                        );
+
+        Option = (int) get_number ( "Ingrese su opcion: ", "NO ES UN VALOR VALIDO." );
+
+        if ( Option < 1 || Option > 4 )
+        {
+
+            printf ( "NO ES UNA OPCION.\n" );
+
+        }
+        
+    } while ( Option < 1 || Option > 4 );
 
     do
     {
@@ -384,7 +407,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
                                 "1. Orden Ascendente."
                                                         );
 
-        Order = (int) get_number ( "Ingrese el orden en el que se ordenarán los empleados : ", "NO ES UN VALOR VALIDO." );
+        Order = (int) get_number ( "Ingrese el orden en el que se ordenaran los empleados : ", "NO ES UN VALOR VALIDO." );
 
         if ( Order > 1 || Order < 0 )
         {
@@ -395,7 +418,7 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     
     } while ( Order > 1 || Order < 0 );
 
-    isokay = ll_sort ( pArrayListEmployee, sort_employee, Order );    
+    isokay = ll_sort ( pArrayListEmployee, sortFunctions [ Option - 1 ], Order );
 
     return isokay;
 }
@@ -509,32 +532,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
     fclose ( pFile );
 
     return isokay;
-}
-
-int sort_employee ( void* One, void* Two )
-{
-
-    int toreturn;
-
-    if ( One != NULL && Two != NULL )
-    {
-
-        if ( strcmp ( ( ( Employee* ) One )->nombre, ( (Employee*) Two )->nombre ) > 0 )
-        {
-
-            toreturn = 1;
-        
-        }
-
-        if ( strcmp ( ( ( Employee* ) One )->nombre, ( (Employee*) Two )->nombre ) < 0 )
-        {
-
-            toreturn = -1;
-
-        }
-
-    }    
-
-    return toreturn;
-
 }

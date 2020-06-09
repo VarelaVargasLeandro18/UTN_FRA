@@ -38,7 +38,7 @@ float get_positive_number ( char* msg, char* errormsg );
  */
 float ask_get_number ( char* msg, char* errormsg, char* ask, char* value, int* notenteragain );
 
-/** \brief Elimina un character en un String.
+/** \brief Elimina un caracter en un String y los siguientes.
  *  \param str char* -> to search for the character.
  *  \param chara char -> character to remove.
  *  \return void
