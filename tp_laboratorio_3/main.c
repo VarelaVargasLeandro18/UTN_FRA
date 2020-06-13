@@ -139,7 +139,7 @@ int main()
                 else
                 {
 
-                    printf ("\nSe ha producido un error.\n\n"); 
+                    printf ("\nSe ha producido un error. Puede que el ID ingresado ya esté en uso.\n\n"); 
                 
                 }
                 
@@ -160,7 +160,7 @@ int main()
                 else
                 {
 
-                    printf ("\nSe ha producido un error.\n\n"); 
+                    printf ("\nSe ha producido un error. Es factible que el empleado no exista.\n\n"); 
                 
                 }
                 
@@ -196,7 +196,7 @@ int main()
                 if ( controller_ListEmployee ( listaEmpleados ) == FALSE )
                 {
 
-                    printf ("\nSe ha producido un error.\n\n"); 
+                    printf ("\nSe ha producido un error. Es factible que el empleado no exista.\n\n"); 
 
                 }
 
@@ -286,6 +286,8 @@ int main()
         }
 
     } while(option != 10);
+
+    ll_deleteLinkedList ( listaEmpleados );
 
     return 0;
 }

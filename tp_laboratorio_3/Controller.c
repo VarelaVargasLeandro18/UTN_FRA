@@ -72,7 +72,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
 
-    boolean isokay = FALSE;
+    boolean isokay = TRUE;
 
     Employee* myEmployee = employee_new();
 
@@ -80,46 +80,66 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
     char AuxnombreEmployee [128];
     int AuxHorasTrabajadasEmployee;
     int AuxSueldoEmployee;
+    int LookForId;
     
-    if ( myEmployee != NULL )
+    if ( myEmployee != NULL && pArrayListEmployee != NULL )
     {
 
         AuxIdEmployee = (int) get_positive_number ( "Ingrese el ID del empleado: ", "NO ES UN ID VALIDO. RECUERDE: ¡SOLO ID POSITIVOS!" );
-        
-        do
+
+        for ( int Index = 0; Index < ll_len ( pArrayListEmployee ); Index++ )
         {
-            
-            printf ("Ingrese el Nombre del Empleado: ");
+
+            employee_getId ( ll_get ( pArrayListEmployee, Index ), &LookForId );
+
+            if ( AuxIdEmployee == LookForId )
+            {
+
+                isokay = FALSE;                
+
+            }
+
+        }
+
+        if ( isokay == TRUE )
+        {
 
             cleanbuffer ();
 
-            fgets ( AuxnombreEmployee, 128, stdin );
+            do
+            {
+                
+                printf ("Ingrese el Nombre del Empleado: ");
 
-            str_eliminate ( AuxnombreEmployee, 128, '\n' );
+                fgets ( AuxnombreEmployee, 128, stdin );
 
-            if ( isonlyalpha ( AuxnombreEmployee ) == FALSE )
+                str_eliminate ( AuxnombreEmployee, 128, '\n' );
+
+                if ( isonlyalpha ( AuxnombreEmployee ) == FALSE )
+                {
+
+                    printf ("¡UN NOMBRE SOLO CONTIENE LETRAS!\n");
+
+                }
+            
+            } while ( isonlyalpha ( AuxnombreEmployee ) == FALSE );
+
+            AuxHorasTrabajadasEmployee = (int) get_positive_number ( "Ingrese la cantidad de Horas Trabajadas del empleado: ", "NO ES UN VALOR VALIDO. RECUERDE: ¡SOLO VALORES POSITIVOS!" );
+            AuxSueldoEmployee = (int) get_positive_number ( "Ingrese el sueldo del empleado: $", "NO ES UN VALOR VALIDO. RECUERDE: ¡SOLO VALORES POSITIVOS!" );
+
+            if ( 
+                employee_setId ( myEmployee, AuxIdEmployee ) == TRUE && 
+                employee_setNombre ( myEmployee, AuxnombreEmployee ) == TRUE &&
+                employee_setHorasTrabajadas ( myEmployee, AuxHorasTrabajadasEmployee ) == TRUE &&
+                employee_setSueldo ( myEmployee, AuxSueldoEmployee ) == TRUE
+                                                                                )
             {
 
-                printf ("¡UN NOMBRE SOLO CONTIENE LETRAS!\n");
+                isokay = TRUE;
+
+                ll_add ( pArrayListEmployee, ( Employee* ) myEmployee );
 
             }
-        
-        } while ( isonlyalpha ( AuxnombreEmployee ) == FALSE );
-
-        AuxHorasTrabajadasEmployee = (int) get_positive_number ( "Ingrese la cantidad de Horas Trabajadas del empleado: ", "NO ES UN VALOR VALIDO. RECUERDE: ¡SOLO VALORES POSITIVOS!" );
-        AuxSueldoEmployee = (int) get_positive_number ( "Ingrese el sueldo del empleado: $", "NO ES UN VALOR VALIDO. RECUERDE: ¡SOLO VALORES POSITIVOS!" );
-
-        if ( 
-            employee_setId ( myEmployee, AuxIdEmployee ) == TRUE && 
-            employee_setNombre ( myEmployee, AuxnombreEmployee ) == TRUE &&
-            employee_setHorasTrabajadas ( myEmployee, AuxHorasTrabajadasEmployee ) == TRUE &&
-            employee_setSueldo ( myEmployee, AuxSueldoEmployee ) == TRUE
-                                                                            )
-        {
-
-            isokay = TRUE;
-
-            ll_add ( pArrayListEmployee, ( Employee* ) myEmployee );
 
         }
 
@@ -139,7 +159,7 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
 
-    boolean isokay = TRUE;
+    boolean isokay = FALSE;
 
     int AuxIdEmployee;
     int option;
@@ -151,12 +171,13 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
     int AuxHorasTrabajadasEmployee;
     int AuxSueldoEmployee;
 
+    int LookForEmployeeId;
+
     AuxIdEmployee = get_positive_number ( "Ingrese el Id del empleado que desea editar: ", "NO ES UN ID VALIDO. RECUERDE: ¡SOLO ID POSITIVOS!" );
 
+    // Busco al empleado:
     for ( int Index = 0; Index < ll_len ( pArrayListEmployee ); Index++ )
     {
-
-        int LookForEmployeeId;
 
         Employee* Aux = ( Employee* ) ll_get ( pArrayListEmployee, Index );
 
@@ -197,12 +218,13 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
                     {
                     
                         printf ("-------Cambiar Nombre del Empleado-------\n");
+                        
+                        cleanbuffer ();
+                        
                         do
                         {
                             
                             printf ("Ingrese el Nombre del Empleado: ");
-
-                            cleanbuffer ();
 
                             fgets ( AuxnombreEmployee, 128, stdin );
 
@@ -271,13 +293,12 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 
     int AuxIdEmployee;
     int EmployeeIndex;
+    int LookForEmployeeId;
 
     AuxIdEmployee = get_positive_number ( "Ingrese el Id del empleado que desea borrar: ", "NO ES UN ID VALIDO. RECUERDE: ¡SOLO ID POSITIVOS!" );
 
     for ( int Index = 0; Index < ll_len ( pArrayListEmployee ); Index++ )
     {
-
-        int LookForEmployeeId;
 
         Employee* Aux = ( Employee* ) ll_get ( pArrayListEmployee, Index );
 
@@ -310,7 +331,7 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
 
-    boolean isokay = TRUE;
+    boolean isokay = FALSE;
 
     int AuxIdEmployee;
     char AuxnombreEmployee [128];
@@ -319,7 +340,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
     Employee* myEmployee = NULL;
 
-    if ( pArrayListEmployee != NULL && ll_isEmpty ( pArrayListEmployee ) == TRUE )
+    if ( pArrayListEmployee != NULL && ll_isEmpty ( pArrayListEmployee ) == 0 )
     {
 
         isokay = TRUE;
@@ -346,12 +367,6 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
                                                 AuxHorasTrabajadasEmployee,
                                                 AuxSueldoEmployee
                                                                         );
-
-            }
-            else
-            {
-                
-                isokay = FALSE;
 
             }
             
