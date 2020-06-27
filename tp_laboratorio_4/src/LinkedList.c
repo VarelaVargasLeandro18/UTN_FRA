@@ -109,12 +109,14 @@ Node* test_getNode(LinkedList* this, int nodeIndex)
 static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 {
     int returnAux = -1;
-    Node* pnewNode = ( Node* ) malloc ( sizeof ( Node ) );
+    Node* pnewNode = NULL;
     Node* pprevNode = NULL;
     Node* pnextNode = NULL;
 
     if ( this != NULL && nodeIndex >= 0 && ll_len ( this ) >= nodeIndex )
     {
+
+    	pnewNode = ( Node* ) malloc ( 1 * sizeof ( Node ) );
 
     	pnewNode->pElement = pElement;
 
@@ -140,12 +142,6 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 
     	this->size += 1;
     	returnAux = 0;
-
-    }
-    else
-    {
-
-    	free ( pnewNode );
 
     }
 
@@ -443,6 +439,7 @@ int ll_push(LinkedList* this, int index, void* pElement)
     int returnAux = -1;
 
     returnAux = addNode ( this, index, pElement );
+    //add_Node realiza todas las comprobaciones necesarias: this!=NULL, index < this->size y index >= 0
 
     return returnAux;
 
@@ -523,49 +520,26 @@ int ll_contains(LinkedList* this, void* pElement)
 */
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
-    int returnAux = -1;
+
+	int returnAux = -1;
 
     int CountOkay = 0;
-    int Index1 = 0;
-    int Index2 = 0;
-    int len1;
     int len2;
 
     if ( this != NULL && this2 != NULL )
     {
 
-    	len1 = ll_len ( this );
-		len2 = ll_len ( this2 );
+    	returnAux = 0;
 
-    	if ( len2 > len1 )
+    	len2 = ll_len ( this2 );
+
+    	for ( int Index = 0; Index < ll_len ( this ); Index++ )
     	{
 
-    		returnAux = 0;
-
-    	}
-    	else
-    	{
-
-    		while ( Index2 < len2 )
+    		if ( ll_contains ( this2, ll_get ( this, Index ) ) == 1 )
     		{
 
-    			while ( Index1 < len1 )
-    			{
-
-    				if ( ll_get ( this, Index1 ) == ll_get ( this, Index2 ) )
-    				{
-
-    					CountOkay++;
-    					break;
-
-    				}
-
-    				Index1++;
-
-    			}
-
-    			Index2++;
-    			Index1 = 0;
+    			CountOkay++;
 
     		}
 
@@ -573,12 +547,7 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
     		{
 
     			returnAux = 1;
-
-    		}
-    		else
-    		{
-
-    			returnAux = 0;
+    			break;
 
     		}
 
@@ -587,6 +556,7 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
     }
 
     return returnAux;
+
 }
 
 /** \brief Crea y retorna una nueva lista con los elementos indicados
@@ -601,20 +571,20 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 */
 LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
-    LinkedList* cloneArray = NULL;
+    LinkedList* subList = NULL;
 
     if ( this != NULL && from >=0 && from < ll_len ( this ) && to <= ll_len ( this ) && to > from )
     {
 
-    	cloneArray = ll_newLinkedList ();
+    	subList = ll_newLinkedList ();
 
-    	if ( cloneArray != NULL )
+    	if ( subList != NULL )
     	{
 
     		for ( int Index = from; Index < to; Index++  )
 			{
 
-				ll_add ( cloneArray, ll_get ( this, Index ) );
+				ll_add ( subList, ll_get ( this, Index ) );
 
 			}
 
@@ -622,7 +592,7 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 
     }
 
-    return cloneArray;
+    return subList;
 }
 
 
@@ -635,16 +605,12 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 */
 LinkedList* ll_clone(LinkedList* this)
 {
-    LinkedList* cloneArray = NULL;
+    LinkedList* clonedList = NULL;
 
-    if ( this != NULL )
-    {
+    clonedList = ll_subList ( this, 0, ll_len ( this ) );
+    // ll_subList ya realiza las comprobaciones necesarias.
 
-    	cloneArray = ll_subList ( this, 0, ll_len ( this ) );
-
-    }
-
-    return cloneArray;
+    return clonedList;
 }
 
 
